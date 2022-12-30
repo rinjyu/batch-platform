@@ -1,0 +1,6 @@
+/.idea/
+/*/.idea/
+/*/target/
+/batch-docker/db/oracle/oradata/*
+/batch-docker/db/postgresql/data/*
+*.iml

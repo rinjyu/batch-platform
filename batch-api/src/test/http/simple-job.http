@@ -1,0 +1,7 @@
+POST http://localhost:8081/batch/simple-job/execute
+Content-Type: application/json
+
+{
+    "requestDate": "20221204",
+    "runner": "runner1"
+}

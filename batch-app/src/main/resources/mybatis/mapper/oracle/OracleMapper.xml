@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.batch.mapper.oracle.OracleMapper">
+
+    <select id="getInventories" parameterType="com.spring.batch.domain.Inventory" resultType="com.spring.batch.domain.Inventory">
+        <![CDATA[
+            SELECT
+                ITEM_ID
+                , UITEM_ID
+                , SALESTR_NO
+                , USABL_INV_QTY
+            FROM INVENTORY
+            WHERE 1 = 1
+            AND INV_EFF_DIV_CD = '10'
+            AND (#{itemId} IS NULL OR ITEM_ID = #{itemId})
+            AND (#{uitemId} IS NULL OR UITEM_ID = #{uitemId})
+            AND (#{salestrNo} IS NULL OR SALESTR_NO = #{salestrNo})
+        ]]>
+    </select>
+
+    <select id="getInventory" parameterType="com.spring.batch.domain.Inventory" resultType="com.spring.batch.domain.Inventory">
+        <![CDATA[
+            SELECT
+                ITEM_ID
+                , UITEM_ID
+                , SALESTR_NO
+                , USABL_INV_QTY
+            FROM INVENTORY
+            WHERE 1 = 1
+            AND INV_EFF_DIV_CD = '10'
+            AND ITEM_ID = #{itemId}
+            AND UITEM_ID = #{uitemId}
+            AND SALESTR_NO = #{salestrNo}
+        ]]>
+    </select>
+
+    <insert id="insertInventory" parameterType="com.spring.batch.domain.Inventory">
+        <![CDATA[
+            INSERT INTO INVENTORY (
+                ITEM_ID
+                , UITEM_ID
+                , SALESTR_NO
+                , INV_EFF_DIV_CD
+                , BASE_INV_QTY
+                , USABL_INV_QTY
+                , REG_DTS
+                , REG_ID
+                , MOD_DTS
+                , MOD_ID
+            ) VALUES (
+                #{itemId}
+                , #{uitemId}
+                , #{salestrNo}
+                , '10'
+                , #{baseInvQty}
+                , #{usablInvQty}
+                , SYSDATE
+                , #{regId}
+                , SYSDATE
+                , #{modId}
+            )
+        ]]>
+    </insert>
+</mapper>

@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: batch-config
+  profiles:
+    active: @spring.profiles.active@
+  banner:
+    location: classpath:banner/banner.txt
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:config
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stg
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

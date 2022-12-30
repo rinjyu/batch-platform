@@ -1,0 +1,52 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    cloud:
+      config:
+        name: batch-app
+        profile: local
+  batch-manage:
+    datasource:
+      jdbc-url: jdbc:log4jdbc:postgresql://localhost:5432/batch_db?charSet=UTF-8
+      username: batch
+      password: batch
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        maximum-pool-size: 5
+        max-lifetime: 5
+  mysql:
+    datasource:
+      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/inventory_db?useUnicode=true&characterEncoding=utf8
+      username: inventory
+      password: inventory
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        maximum-pool-size: 5
+        max-lifetime: 5
+  oracle:
+    datasource:
+      jdbc-url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+      username: inventory
+      password: inventory
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        maximum-pool-size: 5
+        max-lifetime: 5
+  batch:
+    job:
+      #enabled: false           # true : 애플리케이션 구동 시 등록된 모든 Job 실행, false : 애플리케이션 구동 시점에 작업이 실행되지 않도록 비활성화(Job 자동실행 비활성화)
+      names: ${job.name:NONE}  # 실행하고자 하는 Job의 이름을 바인딩함, 애플리케이션 실행 시 Program arguments로 Job의 이름을 입력함, 여러 Job을 설정할 경우 콤마(,)로 구분
+    jdbc:
+      initialize-schema: never   #always : 스크립트 항상 실행, never : 개발자가 직접 수동으로 1회 스크립트 실행
+
+logging:
+  level:
+    org.springframework.batch: DEBUG
+
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*/*.xml
+  config-locations: classpath:/mybatis/config/mybatis-config.xml

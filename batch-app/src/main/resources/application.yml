@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: batch-app
+  profiles:
+    active: @spring.profiles.active@
+  config:
+    import: optional:configserver:http://localhost:8082
+  banner:
+    location: classpath:banner/banner.txt
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
